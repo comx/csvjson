@@ -73,6 +73,36 @@ module.exports = {
         return outputSave(textContent.join("\n")) ;
     },
 
+    objectToCSV : function(content, data){
+        if(!content){
+            throw new Error("invalid data");
+        }
+        if(typeof content === "string"){
+            content = JSON.parse(content);
+        }
+        if(!content.length){
+            throw new Error("invalid data");
+        }
+        var textContent = [];
+        var headers = false;
+        content.forEach(function(item){
+            if(util.isArray(item)){
+                textContent.push(item.join(','));
+            }else{
+                headers = Object.keys(item).join(',');
+                var data = [];
+                for(var i in item){
+                    data.push(item[i]);
+                }
+                textContent.push(data.join(','));
+            }
+        });
+        if(headers){
+            textContent.unshift(headers);
+        }
+        return outputSave(textContent.join("\n")) ;
+    },
+
     toColumnArray : function(data){
         var content = getContentIfFile(data);
         if(!content || typeof content !== "string"){
