@@ -73,7 +73,7 @@ module.exports = {
         return outputSave(textContent.join("\n")) ;
     },
 
-    objectToCSV : function(content, data){
+    objectToCSV : function(content){
         if(!content){
             throw new Error("invalid data");
         }
